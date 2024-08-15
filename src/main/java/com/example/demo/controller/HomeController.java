@@ -1,0 +1,20 @@
+package com.example.demo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/test")
+public class HomeController {
+
+    @GetMapping("/")
+    public String home() {
+        return "index";
+    }
+    @GetMapping("/cellphone")
+    public String cell() {
+
+        return "cellphone";
+    }
+}

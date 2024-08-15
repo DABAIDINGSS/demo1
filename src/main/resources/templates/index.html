@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Calculate Addition</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<h1>Add Two Numbers</h1>
+<button id = "cell">cellphone</button>
+<form id="addForm">
+    <label for="num1"></label><input type="number" id="num1" ></input>
+    <label for="num2"></label><input type="number" id="num2" placeholder="Enter second number"></input>
+    <button type="submit" >Calculate</button>
+</form>
+<p id="result"></p>
+<script>
+    $("button").click(function (event)
+        {
+            event.preventDefault();
+            var n1 = parseFloat($("#num1").val())
+            var n2 = parseFloat($("#num2").val())
+            $.ajax(
+                {
+                    url: "/test/add",
+                    type: "POST",
+                    data: {
+                        num1:n1,
+                        num2:n2
+                    },
+                    success: function(response) { // 服务器响应的回调函数
+                        $("#result").text("Result: " + response);
+                    },
+                    error: function() {
+                        $("#result").text("Error occurred while processing your request.");
+                    }
+
+                }
+            )
+        }
+    )
+
+    $("#cell").click(function() {
+        window.location.href = "/test/cellphone";
+    });
+
+</script>
+</body>
+</html>

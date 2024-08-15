@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="application.properties"/>
+    <typeAliases>
+        <!--如果实体类 bean 比较少的话，可以采用 typeAlias 逐个配置-->
+        <!--<typeAlias type="com.jobs.bean.employee" alias="employee"/>-->
+        <!--绝大多数情况下，都是直接配置实体类 bean 所在的包，这样包下所有的实体类都自动配置-->
+        <package name="com.example.demo.base.vo"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://bj-cynosdbmysql-grp-cyh0uqac.sql.tencentcdb.com:22037/ak74m?useSSL=false&amp;serverTimezone=UTC"/>
+                <property name="username" value="root"/>
+                <property name="password" value="88292865ldqLDQ"/>
+            </dataSource>
+        </environment>
+
+
+    </environments>
+
+    <!-- 添加映射文件 -->
+    <mappers>
+        <mapper resource="mappers/CellphoneMapper.xml"/>
+    </mappers>
+
+
+
+</configuration>

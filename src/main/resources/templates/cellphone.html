@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cellphone</title>
+  <style>
+    #cellphone {
+      width: 100%;
+      margin-top: 20px;
+      height: 400px;
+      overflow: auto;
+      background: lightgoldenrodyellow;
+      border: 1px black solid;
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+      border: 2px black solid;
+    }
+    th {
+      background-color: #f2d3f7;
+    }
+    button {
+      margin: 10px 0;
+    }
+    /*设置奇数行颜色*/
+    table tr:nth-child(odd)
+    {
+      background: rgb(178, 178, 179);
+    }
+    /*设置偶数行颜色*/
+    table tr:nth-child(even)
+    {
+      background: rgb(241, 241, 241);
+    }
+    /*设置鼠标聚焦到行上是凸显*/
+    table tr:hover{
+      background-color: rgb(0,200,200);}
+    #th{
+      position: sticky;
+      top: 0;
+    }
+    table{
+      width: 100%;
+      table-layout: fixed;
+    }
+
+  </style>
+</head>
+<body>
+<h1>Cellphone Catalog</h1>
+<button id="loadData">Load Cellphone Data</button>
+
+  <label>
+    <select id = "Protection">
+      <option value="">请选择</option>
+      <option value="1">七天退还</option>
+      <option value="0">无七天退还</option>
+    </select>
+    <input type="text" id="seller" placeholder="卖家"></input>
+    <input type="text" id="summary" placeholder="简述"></input>
+    <input type="text" id="place" placeholder="运输路径 货到付款？"></input>
+  </label>
+
+<button id = "special_query">查询</button>
+<button id = "dynamic_special_query">动态sql查询</button>
+<button id = "insert_phone">添加</button>
+<button id = "export">导出</button>
+<form id="uploadForm" enctype="multipart/form-data">
+  <input type="file" name="file" />
+  <button type="button" onclick="uploadFile()">导入</button>
+</form>
+<div id = "cellphone">
+  <div id = "th">
+    <table>
+        <tr>
+          <th>序号</th>
+          <th>简介</th>
+          <th>保障</th>
+          <th>七天退换</th>
+          <th>月销</th>
+          <th>地点</th>
+          <th>价格</th>
+          <th>店铺</th>
+          <th>月销</th>
+          <th>评论</th>
+        </tr>
+    </table>
+  </div>
+  <div id="tb">
+    <table id="cellphoneTable"></table>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/test/js/script.js"></script>
+<script>
+  function uploadFile() {
+    var formData = new FormData(document.getElementById('uploadForm'));
+    fetch('/test/cellphones/import', {
+      method: 'POST',
+      body: formData
+    })
+            .then(response => response.text())
+            .then(data => alert(data))
+            .catch(error => console.error('Error:', error));
+  }
+</script>
+
+
+</body>
+</html>

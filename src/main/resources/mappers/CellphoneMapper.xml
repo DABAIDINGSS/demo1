@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.CellphoneMapper">
+
+    <!-- 查询所有手机 -->
+    <select id="findAll" resultType="com.example.demo.base.vo.CellphoneVO">
+        SELECT * FROM chap05_cellphone
+    </select>
+
+    <select id="findByProtected" resultType="com.example.demo.base.vo.CellphoneVO">
+        SELECT * FROM chap05_cellphone
+        where Protection = #{Protected}
+
+    </select>
+
+    <select id="find" resultType="com.example.demo.base.vo.CellphoneVO">
+        SELECT * FROM chap05_cellphone where 1=1
+        <if test="id > 0 and id != null and id != ''" >
+            and id = #{id}
+        </if>
+        <if test="summary != null and summary != ''">
+            and Summary like concat('%',#{summary},'%')
+        </if>
+        <if test="legend != null and legend != ''">
+            and Legend like concat('%',#{legend},'%')
+        </if>
+        <if test="protection != null and protection != ''">
+            and Protection = #{protection}
+        </if>
+        <if test="sale != null and sale != ''">
+            and Sale like concat('%',#{sale},'%')
+        </if>
+        <if test="place != null and place != ''">
+            and Place like concat('%'#{place}'%')
+        </if>
+        <if test="price != null and price != ''">
+            and Price = #{price}
+        </if>
+        <if test="seller != null and seller != ''">
+            and Seller like concat('%',#{seller},'%')
+        </if>
+        <if test="msales != null">
+            and msales = #{msales}
+        </if>
+        <if test="comments != null and comments >= 0">
+            and Comments = #{comments}
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.example.demo.base.vo.CellphoneVO">
+        INSERT INTO chap05_cellphone
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="summary != null and summary != ''">
+            Summary,
+            </if>
+            <if test="legend != null and legend != ''">
+            Legend,
+            </if>
+            <if test="protection != null and protection != ''">
+            Protection,
+            </if>
+            <if test="place != null and place != ''">
+            Place,
+            </if>
+            <if test="price != null and price != ''">
+            Price,
+            </if>
+            <if test="seller != null and seller != ''">
+            Seller,
+            </if>
+            <if test="msales != null and msales >= 0">
+            Msales,
+            </if>
+            <if test="comments != null and comments >= 0">
+            Comments,
+            </if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="summary != null and summary != ''">
+            #{summary},
+            </if>
+            <if test="legend != null and legend != ''">
+            #{legend},
+            </if>
+            <if test="protection != null and protection != ''">
+            #{protection},
+            </if>
+            <if test="place != null and place != ''">
+            #{place},
+            </if>
+            <if test="price != null and price != ''">
+            #{price},
+            </if>
+            <if test="seller != null and seller != ''">
+            #{seller},
+            </if>
+            <if test="msales != null and msales >= 0">
+            #{msales},
+            </if>
+            <if test="comments != null and comments >= 0">
+            #{comments},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="excelInsert" parameterType="java.util.List">
+        INSERT INTO chap05_cellphone
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="list[0].summary != null and list[0].summary != ''">
+                Summary,
+            </if>
+            <if test="list[0].legend != null and list[0].legend != ''">
+                Legend,
+            </if>
+            <if test="list[0].protection != null and list[0].protection != ''">
+                Protection,
+            </if>
+            <if test="list[0].sale!= null and list[0].sale != ''">
+                Sale,
+            </if>
+            <if test="list[0].place != null and list[0].place != ''">
+                Place,
+            </if>
+            <if test="list[0].price != null and list[0].price != ''">
+                Price,
+            </if>
+            <if test="list[0].seller != null and list[0].seller != ''">
+                Seller,
+            </if>
+            <if test="list[0].msales != null and list[0].msales >= 0">
+                Msales,
+            </if>
+            <if test="list[0].comments != null and list[0].comments >= 0">
+                Comments,
+            </if>
+        </trim>
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.summary != null and item.summary != ''">
+                    #{item.summary},
+                </if>
+                <if test="item.legend != null and item.legend != ''">
+                    #{item.legend},
+                </if>
+                <if test="item.protection != null and item.protection != ''">
+                    #{item.protection},
+                </if>
+                <if test="item.sale!= null and item.sale != ''">
+                    #{item.sale},
+                </if>
+                <if test="item.place != null and item.place != ''">
+                    #{item.place},
+                </if>
+                <if test="item.price != null and item.price != ''">
+                    #{item.price},
+                </if>
+                <if test="item.seller != null and item.seller != ''">
+                    #{item.seller},
+                </if>
+                <if test="item.msales != null and item.msales >= 0">
+                    #{item.msales},
+                </if>
+                <if test="item.comments != null and item.comments >= 0">
+                    #{item.comments},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+
+</mapper>
